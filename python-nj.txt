@@ -1,0 +1,48 @@
+Python 玩转数据课程
+
+#1.1 Python 简介
+
+创始人：Guido，1991年诞生第一个解释器。
+
+Python2与Python3差异并不大，需依据使用的类库来决定。
+
+Python应用：Web开发，GUI开发，操作系统，多媒体（游戏）
+
+
+#1.2 第一个Python 程序
+
+myString = "Hello World"
+print(myString)
+
+Shell方式：直接执行语句；
+文件方式：存储代码为.py后缀后对文件进行执行。
+
+Python包的安装：Python官网PYPI页面，一般使用pip命令来安装包。
+
+功能强大的IDE：anacoda
+
+import numpy as np
+import matplotlib.pyplot as plt
+t=np.arange(0,4,0.1)
+plt.plot(t,t,t,t+2,t,t**2)
+
+##Python输出：print函数
+Python3：
+-print（变量）
+—print（字符串）
+##Python输入：input函数
+注意：input()的返回类型为字符型（配合int，float，eval等函数来使用有效的input数据）
+
+X= int(input("请输入一个数字："))  
+
+##Python风格
+1.注释：以#开始到本行结束
+2.续行符：\
+无需续航符的两种情况:(1)各类括号内的内容；（2）三引号内的内容
+3.一行多语句：；作为分割，一般不写多语句
+4.缩进：
+（1）增加缩进表示语句块的开始；
+（2）相同缩进表示同级别的语句块；
+（3）减少缩进表示语句块的退出：
+（4）缩进是强制的。
+
