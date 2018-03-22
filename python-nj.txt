@@ -143,4 +143,16 @@ f=open(r"c:\\python\\test.py",'w')  #"\"为转义字符
 1.函数
 完成一个特定功能的一段代码：
 绝对值abs（），四舍五入round（）
-（1）内建函数 float（）pow（）；dir（），input（）##可通过dir（__builtins__）查看
+（1）内建函数 float（）pow（）；dir（），input（）  ##可通过dir（__builtins__）查看
+
+2.模块
+非内建函数需预先导入模块 ##import
+一个完整的python文件即是一个模块
+from module import *  ##导入模块中所有函数
+
+3.包
+一个有层次的文件目录结构
+定义了一个由模块和子包组成的Python应用程序执行环境
+
+4.库
+具有一组相关功能的模块的集合
