@@ -46,3 +46,184 @@ X= int(input("请输入一个数字："))
 （3）减少缩进表示语句块的退出：
 （4）缩进是强制的。
 
+
+
+#1.3 Python语法基础
+
+1.变量
+mystring='hi python'
+p=123.56
+Python中一般无常量；
+
+2.标识符
+允许作为变量名或者其他对象名称的有效符号
+（1）首字符是字母或下划线
+（2）其余可以全是数字，下划线和字母
+（3）大小写敏感
+但应尽量避免下划线开头的变量名（私有变量名）：__ver__
+
+3.关键字
+不可随便作为其他对象的标识符 if，and等
+
+4.表达式
+用运算符链接各种类型数据的式子（算数，位，比较和逻辑运算符）
+（1）运算符有优先级顺序
+（2）表达式必须有运算的结果，一般赋值给一个变量
+
+5.赋值
+变量第一次赋值，同时获得类型和“值”（不用声明类型），以“引用”的方式来赋值。
+P=3.14159
+（1）增量赋值：
+m%=5  m=m%5
+（2）链式赋值：
+PI=pi=3.14
+（3）多重赋值：
+x=1
+y=2
+x,y  #创建元组
+x,y=y,x  #值交换
+PI,r=3.14,6
+
+6.语句
+完整执行一个任务的一行逻辑代码
+语句：完成一个任务；表达式：任务的一部分组成
+
+#1.4 Python数据类型
+
+1.整型
+整型和长整型并不严格区分（-2^63~2^63-1）
+Python中的整型一般没有溢出的错误
+
+2.布尔型
+整型的子类，仅有2个值（True,False(1,0)）,可赋值给变量
+
+3.浮点型
+即数学中的实数，可以用科学计数法表示
+
+4.复数型
+实数+虚数
+虚数部分必须有j：2.4+5.6j
+复数可以分离实部和虚部（.real；.imag）
+共轭复数：.conjugate
+
+5.序列类型
+（1）字符串
+可用单引号，双引号以及三引号（'''abc'''）来鉴别
+
+索引操作符：mystring[1]，取字符串第二个字符
+
+（2）列表[]
+（3）元组()
+（4）字典{}映射类型：键值对应
+d={"a":"c",1:"b"}
+
+#1.5 Python基本运算
+
+1.算术运算
+乘方**，加减+-，乘除*/，整除//，取余%
+
+2.比较运算
+小于<，大于＞，==等于，>=大于等于,<=小于等于,!=不等于
+3<4<7 #same as (3<4)&&(4<7)
+4>3==3 #same as (4>3)&&(3=3)
+
+3.逻辑运算
+not，and，or
+
+4.字符运算
+（1）原始字符串操作符（r/R）：用于一些不希望转义字符起作用的地方
+f=open("c:\python\test.py",'w')  #error
+f=open(r"c:\python\test.py",'w')  
+f=open(r"c:\\python\\test.py",'w')  #"\"为转义字符
+
+（2）所有字符串都是Unicode字符串：Python2需转换
+
+#1.7 Python的函数，模块
+
+1.函数
+完成一个特定功能的一段代码：
+绝对值abs（），四舍五入round（）
+（1）内建函数 float（）pow（）；dir（），input（）  ##可通过dir（__builtins__）查看
+
+2.模块
+非内建函数需预先导入模块 ##import
+一个完整的python文件即是一个模块
+from module import *  ##导入模块中所有函数
+
+3.包
+一个有层次的文件目录结构
+定义了一个由模块和子包组成的Python应用程序执行环境
+
+4.库
+具有一组相关功能的模块的集合
+
+
+
+##第一单元练习
+1.从键盘输入两个整数，求这两个整数的和、差、积、商（尝试用一般除法和整除两种方式）并输出。
+
+提示：注意input()函数的返回类型
+
+#code1
+Tempstr1=input("请输入一个数字：")
+Tempstr2=input("请输入另一个数字：")
+print(eval(Tempstr1)+eval(Tempstr2))
+print(eval(Tempstr1)-eval(Tempstr2))
+print(eval(Tempstr1)*eval(Tempstr2))
+print(eval(Tempstr1)/eval(Tempstr2))
+print(eval(Tempstr1)//eval(Tempstr2))
+
+2.简单的输入输出：编程实现输入姓、名的提示语并接受用户输入，并单独显示姓、名和全名
+
+#code2
+firstname=input("input your firstname:")
+surname=input("input your surname:")
+print("your firstname is:",firstname)
+print("your surname is:",surname)
+print("your full name is:",surname,firstname)
+
+
+
+
+ 
+#2.1 条件结构
+
+1. if 语句
+
+if expression：#条件表达式
+
+    expr_true_suite  #表达式条件为True时执行的代码块
+	
+elif expression2： #表达式1条件为True，1为False时执行的代码块
+
+    expr2_true_suite
+	      
+		  ：
+		  ：
+	
+
+elif expressionN:  
+    
+	exprN_true_suite    #表达式N条件为True，前N-1个表达式条件都为False时执行的代码块
+	
+else：
+    all_expr_false_suite #所有表达式条件为False时执行的代码块
+
+	代码块必须缩进，else语句不用缩进
+
+条件嵌套时：相同等级的条件结构语句缩进保持一致。
+
+##猜数字游戏code ver.1.0
+from random import randint 
+x=randint(0,100)
+#print(x)
+digit=int(input("Please input a number:"))
+if digit == x:
+    print("Bingo!")
+elif digit>x:
+	print("too large, try again!")
+else:
+    print("too small, try again!")
+	
+
+
