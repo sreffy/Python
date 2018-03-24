@@ -405,7 +405,58 @@ def fib(n):
 全局变量和局部变量同名时，遵循内层屏蔽外层的原则
 改变全局变量时需要global语句
 
+
+
 #####Python 中的常用标准函数库#####
 
+1.math
+math.celi()向上取整，math.floor()向下取整，math.pow(x,y)x的y次方，math.sqrt()开方
 
- 
+math.degrees()弧度转角度,math.radians()角度转弧度
+
+2.os
+os.getcwd()获取当前工作目录,os.chdir()改变工作目录，os.rename('test.txt','test1.txt')修改文件名
+
+os.remove()删除文件，
+
+3.random
+random.choice(['C++','Java','Python'])从序列中获取一个随机值，random.randint()生成随机整数
+random.randrange()获取生成的一个随机整数，random.random()生成1~0之间的一个随机浮点数【0,1）
+random.uniform()生成范围内一个随机浮点数，random.sample(range(100),10)从前面生成的数组中随机获取10个数，返回列表
+random.shuffle()打乱列表中的元素
+
+4.datetime
+date.today()今天的日期，tm=time(20,23,35)创建时间，dt=datetime.now()查看当前日期时间
+
+转换为常用时间格式：print(dt.strftime('%a %b %d %Y %H:%M'))
+如：%a 星期名称（简化）
+
+1971.1.1 0时0时区的时刻为新纪元0时刻，时间戳为距离该时刻的秒数，全球统一
+
+dt=datetime(2017,6,6,23,29) 创建日期时间
+ts=dt.timestamp（） 转化为时间戳 
+print(datetime.fromtimestamp(ts))时间戳转换为本地时间
+
+
+######Python中的异常#######
+
+dir(__builtins__)查看异常类和描述
+
+try-except语句：异常处理
+
+while True：           #循环直到正确输入
+try:
+    raise            #检测语句
+except Exception as err:    #猜测的异常类别
+    print(err)              #打印错误原因
+else:                       #若无异常检出，则可执行else语句
+    print()
+finally：                    #不管是否发生异常，其语句都要执行
+    print()
+	
+上下文管理器with语句
+能够定义和控制代码块执行前的准备动作及执行后的收尾动作
+
+with open('data.txt')as f:   #文件赋值给f
+    for line in f:            #将文件内容按行输出
+	    print (line,end=")
