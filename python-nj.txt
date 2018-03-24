@@ -226,4 +226,237 @@ else:
     print("too small, try again!")
 	
 
+#2.2 range函数
 
+range(start,end,step=1) #起始（默认为0），终止，步长（默认为1）
+range(start,end)       #产生的系列整数形式为[,),左边包含   
+range(end)
+返回一个RANGE对象（生成器，类似于lazy list），产生一系列整数，整数个数为参数值的差
+
+#2.3 循环
+
+1.while循环
+
+while expression：
+
+    suite_to_repeat   #当expression值为True时执行代码块
+	
+	
+2.for 循环
+适合循环次数确定的程序:(1)遍历一个数据集内成员；（2）在列表解析中使用；（3）生成器表达式中可用
+
+
+
+for iter_var in iterable_object:  #string list tuple Dictionary file 都可以迭代
+
+    suite_to_repeat
+	
+
+s='python'
+
+for c in s: #c 代表字符串中的字母
+
+    print(c)
+	
+##猜数字游戏code ver.2.0
+from random import randint 
+x=randint(0,100)
+for count in range(0,5):
+    digit=int(input("Please input a number:"))
+    if digit == x:
+        print("Bingo!")
+    elif digit>x:
+	    print("too large, try again!")
+    else:
+        print("too small, try again!")
+		
+
+列表解析与生成器
+[i for i in range(10)]
+[i+1 for i in range(10) if i%2 ==0] #生成一组奇数
+
+(i+1 for i in range(10) if i%2 ==0)
+
+
+#2.4 循环中的重要语句
+
+1.break语句
+终止当循环，执行循环之后的语句
+
+sumA = 0
+i=1
+while True:
+    sumA+=i
+    i+=1
+    if sumA >10:
+        break
+print('i={},sum={}'.format(i,sumA))
+
+2.continue 语句
+停止当前循环，重新进入循环
+sumA = 0
+i=1
+while i<=5:
+    sumA+=i
+    i+=1
+    if i==3:
+        continue
+print('i={},sum={}'.format(i,sumA))
+
+
+3.else语句
+如果循环代码从break处终止，跳出循环
+正常结束循环，则会执行else代码
+
+##猜数字游戏code ver.3.0
+from random import randint 
+x=randint(0,100)
+go="y"
+while (go=='y'):
+    digit = int(input('Please input a number between 0~300:'))
+	if digit ==x:
+	    print('Bingo!')
+	    break
+    elif digit>x:
+	    print('Too large,try again!')
+	else:
+	    print('Too small, try again!')
+	print('input y if you want to continue.')
+	go=input()
+	print(go)
+else:
+    print('Goodbye!')
+		
+		
+#2.5自定义函数
+
+无return语句时解释器也不会报错
+
+1.自定义函数的创建：
+def function_name([arguments]):
+    "optional documentation string"  #函数的描述（docstring），可通过print(fx.__doc__)查看
+	function_suite
+2.函数调用：
+函数名加上函数运算符，一对小括号（括号内是可选用的参数）
+
+#Prime.py
+
+from math import sqrt
+def isprime(x):
+    if x==1:
+	    return False
+	k=int(sqrt(x))
+	for j in range(2,k+1):
+	    if x%j == 0:
+		    return False
+    return True
+
+	
+for i in range(2,101):
+    if isprime(i):
+        print(i,end='')	
+		
+
+
+3.默认参数
+def f(x,y=True)
+    :
+默认参数值是可以改变的，默认参数要放到参数列表的最后。
+
+4.关键字参数
+调用多个参数时使用关键字来调用参数，使实参和形参一一对应。
+一旦使用关键字参数，后面的参数全都需要使用关键字参数调用
+关键字参数允许改变参数的调用顺序
+
+5.传递函数
+函数可以像一个参数一样传递给另一个函数
+
+6.lambda函数（匿名函数）
+无需取函数名，不用return，比较简洁
+
+r=lambda x: x+x
+r(5)=10
+
+
+#2.6递归
+循环生成第N个斐波那契数列：
+# the nth Fibonacci number
+def fib(n):
+    a,b =0,1
+	count = 1
+	while count <n:
+	a,b =b,a+b
+	count = count + 1
+print(a)
+递归生成：
+def fib(n):
+    if n==0 or n==1:
+	  return n
+	else:
+	  return fib(n-1)+fib(n-2)
+递归必须要有边界，即跳出递归的条件
+但递归的系统资源消耗要比循环语句大，执行效率并不高
+
+
+#2.7 变量作用域
+1.全局变量：在程序代码主体部分的变量
+2.局部变量：位于函数中的变量
+
+全局变量和局部变量同名时，遵循内层屏蔽外层的原则
+改变全局变量时需要global语句
+
+
+
+#####Python 中的常用标准函数库#####
+
+1.math
+math.celi()向上取整，math.floor()向下取整，math.pow(x,y)x的y次方，math.sqrt()开方
+
+math.degrees()弧度转角度,math.radians()角度转弧度
+
+2.os
+os.getcwd()获取当前工作目录,os.chdir()改变工作目录，os.rename('test.txt','test1.txt')修改文件名
+
+os.remove()删除文件，
+
+3.random
+random.choice(['C++','Java','Python'])从序列中获取一个随机值，random.randint()生成随机整数
+random.randrange()获取生成的一个随机整数，random.random()生成1~0之间的一个随机浮点数【0,1）
+random.uniform()生成范围内一个随机浮点数，random.sample(range(100),10)从前面生成的数组中随机获取10个数，返回列表
+random.shuffle()打乱列表中的元素
+
+4.datetime
+date.today()今天的日期，tm=time(20,23,35)创建时间，dt=datetime.now()查看当前日期时间
+
+转换为常用时间格式：print(dt.strftime('%a %b %d %Y %H:%M'))
+如：%a 星期名称（简化）
+
+1971.1.1 0时0时区的时刻为新纪元0时刻，时间戳为距离该时刻的秒数，全球统一
+
+dt=datetime(2017,6,6,23,29) 创建日期时间
+ts=dt.timestamp（） 转化为时间戳 
+print(datetime.fromtimestamp(ts))时间戳转换为本地时间
+
+
+######Python中的异常#######
+
+dir(__builtins__)查看异常类和描述
+
+try-except语句：异常处理
+
+while True：           #循环直到正确输入
+try:
+    raise            #检测语句
+except Exception as err:    #猜测的异常类别
+    print(err)              #打印错误原因
+else:                       #若无异常检出，则可执行else语句
+    print()
+finally：                    #不管是否发生异常，其语句都要执行
+    print()
+	
+上下文管理器with语句
+能够定义和控制代码块执行前的准备动作及执行后的收尾动作
+
+with open('data.txt')as f:   #文件赋值给f
+    for line in f:            #将文件内容按行输出
+	    print (line,end=")
