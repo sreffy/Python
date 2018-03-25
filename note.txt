@@ -1,0 +1,26 @@
+#最大子列和在线更新算法Python3
+
+# 输入列表
+def kInput():
+    k = int(input('请输入您要输入的数字个数'))
+    if 0 < k <= 100000:
+        input_number = str(input('请按照数字+空格的格式输入%s个整数（例如3 4 5）' % k)) #将输入的k个数保存为字符串格式，占位符%s的利用
+        split_number = input_number.split(' ')  #将字符串格式的数字拆分为列表元素
+        return split_number    
+    else:
+        print('请输入恰当的数字（1 到 100000）')
+
+#计算最大子列和
+def Maxse(list1):
+    Thissum=Maxsum=0
+    for i in range(len(list1)):   #len函数可获取列表的长度
+        Thissum+=eval(list1[i])
+        if Thissum>Maxsum:
+            Maxsum=Thissum
+        elif Thissum<0:           
+            Thissum=0
+    return Maxsum
+
+list_k=kInput()
+Maxsum=Maxse(list_k)
+print(Maxsum)
