@@ -6,8 +6,9 @@
 
 项目难点：数据的整理，清洗与规范化，需要Python代码与Excel配合使用'''
 
-
-
+'''所需数据大致分为3类：（1）牛群基本信息，（2）配种事件，（3）产犊事件。配种事件中必须包含每次配种的时间，
+与牛群基本信息对应，产犊事件也包含相应信息。牛群基本信息中须包含最近分娩时间，最近配种时间
+'''
 '''
 Description:使用Pandas拼接多个CSV文件到一个文件（即合并）
 '''
@@ -39,4 +40,111 @@ except Exception as err:
 
 '''(1)海丰牧场有5个文件配种事件的格式无法统一，单独拿出来进行复制粘贴
    (2)五四牛场配种员只有1与2
+   (3)鸿星牛场的数据分为三部分进行导入，其中2012事件中无配种明细
+   (4)瀛博牧场存在新旧牛号的匹配问题
+   (5)种牛场数据中包含产犊性别，死胎等数据，依然有新旧牛号问题；数据分两部分导入
+   (6)至江牛场分3部分导入数据
+   (7)东风牧场有死胎，产犊性别数据
+   (8)跃进一牧场：大致牛群数据分两次导入
+   (9)跃进二牧场与新东牧场部分牛只无牛群记录，只导入配种记录和产犊记录
     '''
+
+'''忽略表头的合并:一些报表中格式比较整齐，可直接合并，用类似的方法如下：'''	
+	
+import pandas as pd
+import os
+Folder_Path = r'F:\Python\erbu\54-sum'          #要拼接的文件夹及其完整路径，注意不要包含中文
+SaveFile_Path =  r'F:\Python\shanghai\54'       #拼接后要保存的文件路径
+SaveFile_Name = r'配种事件.csv'              #合并后要保存的文件名
+
+#修改当前工作目录
+os.chdir(Folder_Path)
+#将该文件夹下的所有文件名存入一个列表
+file_list = os.listdir()
+
+#读取第一个CSV文件并包含表头
+df1 = pd.read_excel(Folder_Path +'\\'+ file_list[0],sheet_name='旬报',skiprows=3)   #sheet_name指定sheet，skiprows指定开头需要跳过的行数
+
+#将读取的第一个CSV文件写入合并后的文件保存
+df1.to_csv(SaveFile_Path+'\\'+ SaveFile_Name,encoding="utf_8_sig",index=False)
+
+#循环遍历列表中各个文件名，并追加到合并后的文件
+try:
+    for i in range(1,len(file_list)):
+        df1 = pd.read_excel(Folder_Path + '\\'+ file_list[i],sheet_name='旬报',skiprows=3)
+        df1.to_csv(SaveFile_Path+'\\'+ SaveFile_Name,encoding="utf_8_sig",index=False, header=False, mode='a+')
+except Exception as err:
+    print(err)
+    print(file_list[i])
+	
+	
+'''导出3个基本事件后用excel整理统一格式'''
+
+'''牛群基本事件整理出的header:["牛号","新牛号","父号","外祖父","母号","出生日期","胎次","配种员","最近分娩日期","上胎产犊日期","最近配种日期","配次","牛场号"]
+   配种事件包含的header（一些header部分表中没有，影响不大）:["牛号","最近分娩日期","最近配种日期","与配公牛","配次","配种员","牛场号","出生日期"]'''
+   
+   '''各场数据用合并语句合并为统一格式的数据'''
+import pandas as pd
+import os
+Folder_Path = r'F:\Python\shanghai\sum\jiben'          #要拼接的文件夹及其完整路径，注意不要包含中文
+SaveFile_Path =  r'F:\Python\shanghai\sum'       #拼接后要保存的文件路径
+SaveFile_Name = r'all-jiben.csv'              #合并后要保存的文件名
+
+#修改当前工作目录
+os.chdir(Folder_Path)
+#将该文件夹下的所有文件名存入一个列表
+file_list = os.listdir()
+
+#读取第一个CSV文件并包含所需要的表头
+df1 = pd.read_excel(Folder_Path +'\\'+ file_list[0])   #编码默认UTF-8，若乱码自行更改</span>
+df2=df1.loc[:,["牛号","新牛号","父号","外祖父","母号","出生日期","胎次","配种员","最近分娩日期","上胎产犊日期","最近配种日期","配次","牛场号"]]
+#将读取的第一个CSV文件写入合并后的文件保存
+df2.to_csv(SaveFile_Path+'\\'+ SaveFile_Name,encoding="utf_8_sig",index=False)
+
+#循环遍历列表中各个文件名，并追加到合并后的文件
+try:
+    for i in range(1,len(file_list)):
+        df1 = (pd.read_excel(Folder_Path + '\\'+ file_list[i])).loc[:,["牛号","新牛号","父号","外祖父","母号","出生日期","胎次","配种员","最近分娩日期","上胎产犊日期","最近配种日期","配次","牛场号"]]
+        df1.to_csv(SaveFile_Path+'\\'+ SaveFile_Name,encoding="utf_8_sig",index=False, header=False, mode='a+')
+except Exception as err:
+    print(err)
+    print(file_list[i])     #检测有数据格式问题的Excel表格
+
+
+'''基本数据与配种数据进行合并'''
+import pandas as pd
+import os
+Folder_Path = r'F:\Python\shanghai\sum\all'          #要拼接的文件夹及其完整路径，注意不要包含中文
+SaveFile_Path =  r'F:\Python\shanghai\sum'       #拼接后要保存的文件路径
+SaveFile_Name = r'all.csv'              #合并后要保存的文件名
+
+#修改当前工作目录
+os.chdir(Folder_Path)
+
+#导入数据
+df1 = pd.read_csv("all-jiben.csv")
+df2 = pd.read_csv("all-peizhong.csv") 
+
+##合并
+df3=df2.combine_first(df1)    #合并相同列并填充数据
+df3.to_csv(SaveFile_Path+'\\'+ SaveFile_Name,encoding="utf_8_sig",index=False)
+
+
+'''基本数据整理完成，删除异常数据后，下一步进行相应固定效应的构建:
+["HYB(出生场年)","YMB(出生年月)","HYI(输精场年)","YMI(输精年月)","HYC(产犊场年)","YMC(产犊年月)"
+ "Parity(胎次)","ST(配种员)","HERD(场)"]'''
+ 
+ 
+import pandas as pd
+import os
+Folder_Path = r'F:\Python\shanghai\sum'          #要拼接的文件夹及其完整路径，注意不要包含中文
+SaveFile_Path =  r'F:\Python\shanghai\sum'       #拼接后要保存的文件路径
+SaveFile_Name = r'effect.csv'              #合并后要保存的文件名
+
+#修改当前工作目录
+os.chdir(Folder_Path)
+
+#导入数据
+df1 = pd.read_excel("final.xlsx")
+
+#
